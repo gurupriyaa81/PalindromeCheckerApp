@@ -1,31 +1,38 @@
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.Stack;
 
-public class PalindromeCheckerApp {
+public class UC6_FIFO_vs_LIFO {
 
     public static void main(String[] args) {
 
         // Hardcoded string
         String original = "madam";
 
-        // Create Stack
+        // Create Queue (FIFO)
+        Queue<Character> queue = new LinkedList<>();
+
+        // Create Stack (LIFO)
         Stack<Character> stack = new Stack<>();
 
-        // Push characters into stack
+        // Enqueue and Push characters
         for (int i = 0; i < original.length(); i++) {
-            stack.push(original.charAt(i));
+            char ch = original.charAt(i);
+            queue.add(ch);   // Enqueue
+            stack.push(ch);  // Push
         }
 
         boolean isPalindrome = true;
 
-        // Pop and compare
-        for (int i = 0; i < original.length(); i++) {
-            if (original.charAt(i) != stack.pop()) {
+        // Compare Dequeue vs Pop
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // Print result
+        // Display result
         if (isPalindrome) {
             System.out.println("The string is a palindrome.");
         } else {
